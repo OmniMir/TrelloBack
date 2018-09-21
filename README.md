@@ -20,7 +20,7 @@ Log In or Sign Up to [Trello](https://trello.com), go https://trello.com/app-key
 
 Then you need generate API Token on the same page and copy your token to ```api_token```.
 
-And last but not least -  input once and future folder of backups to ```destination_folder```. Remember us ```//``` instead of ```/```!!!
+And last but not least -  input once and future folder of backups to ```destination_folder```. Remember use ```//``` instead of ```/```!!!
 
 
 

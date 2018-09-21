@@ -38,7 +38,7 @@ type Card struct {
 type Attachments struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
-	URL string `json:"name"`
+	URL  string `json:"name"`
 }
 
 func main() {
@@ -96,24 +96,25 @@ func main() {
 	fmt.Println(myAttachments)
 	fmt.Println("")
 
-	//Writting file of card
+	//Making path and filename
 	backupFolder := myConfig.DestinationFolder + "Trello 00-00-0000\\"
-	boardFolder := myOrgs[0].Name + "_" + myBoards[1].Name + "\\"
-	cardFile := mylists[2].Name + "_" + myCards[3].Name
+	boardFolder := myOrgs[0].Name + "__" + myBoards[1].Name + "\\"
+	cardFile := mylists[2].Name + "__" + myCards[3].Name
 	extension := ".json"
-
+	//Making all needed folders
 	fileFolder := backupFolder + boardFolder
+	os.MkdirAll(fileFolder, 0644)
 	filename := fileFolder + cardFile + extension
-	os.MkdirAll(fileFolder,0644)
-
+	//Converting cards and attachments to text
 	backupCard, _ := json.Marshal(myCard)
 	backupAttachments, _ := json.Marshal(myAttachments)
-
-	backupFile := append(backupCard,backupAttachments...)
-	echo(filename," ")
-	fmt.Println(backupFile)
+	//Adding new line before attachments
+	backupAttachmentsNewLine := append([]byte("\r\n"), backupAttachments...)
+	backupFile := append(backupCard, backupAttachmentsNewLine...)
+	//Writting file of card
+	echo(filename, filename)
 	err := ioutil.WriteFile(filename, backupFile, 0644)
-	fmt.Println(err)
+	check(err)
 }
 
 func getResponse(request string, authorization string) []byte {

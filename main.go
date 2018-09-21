@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 const Trello = "https://api.trello.com/1/"
@@ -94,6 +95,25 @@ func main() {
 	json.Unmarshal(originAttachments, &myAttachments)
 	fmt.Println(myAttachments)
 	fmt.Println("")
+
+	//Writting file of card
+	backupFolder := myConfig.DestinationFolder + "Trello 00-00-0000\\"
+	boardFolder := myOrgs[0].Name + "_" + myBoards[1].Name + "\\"
+	cardFile := mylists[2].Name + "_" + myCards[3].Name
+	extension := ".json"
+
+	fileFolder := backupFolder + boardFolder
+	filename := fileFolder + cardFile + extension
+	os.MkdirAll(fileFolder,0644)
+
+	backupCard, _ := json.Marshal(myCard)
+	backupAttachments, _ := json.Marshal(myAttachments)
+
+	backupFile := append(backupCard,backupAttachments...)
+	echo(filename," ")
+	fmt.Println(backupFile)
+	err := ioutil.WriteFile(filename, backupFile, 0644)
+	fmt.Println(err)
 }
 
 func getResponse(request string, authorization string) []byte {

@@ -101,9 +101,9 @@ func main() {
 
 func getResponse(request string, authorization string) []byte {
 	response, err := http.Get(Trello + request + authorization)
-	echoErr(err)
+	check(err)
 	responseJSON, err := ioutil.ReadAll(response.Body)
-	echoErr(err)
+	check(err)
 	return responseJSON
 }
 
@@ -114,8 +114,9 @@ func echo(message string, condition string) {
 	}
 }
 
-func echoErr(err error) {
+func check(err error) {
 	if err != nil {
 		fmt.Println(err)
+		//panic(err)
 	}
 }

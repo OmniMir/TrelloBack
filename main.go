@@ -56,6 +56,8 @@ func main() {
 	echo("Configuration OK", myConfig.ApiToken)
 	myAuth := "?key=" + myConfig.ApiKey + "&token=" + myConfig.ApiToken
 
+	//Last backup has found
+
 	//Getting all organizations of user
 	originOrganizations := getResponse("members/me/organizations/", myAuth)
 	var myOrgs []Organizations
@@ -76,6 +78,8 @@ func main() {
 	json.Unmarshal(originLists, &mylists)
 	fmt.Println(mylists)
 	fmt.Println("")
+
+	//Getting labels of board
 
 	//Getting all cards of list
 	var myCards []Cards

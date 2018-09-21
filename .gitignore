@@ -1,0 +1,33 @@
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Windows Folder config file
+Desktop.ini
+
+# Windows Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts & executables
+*.lnk
+*.url
+*.exe
+
+#IDE config files
+.idea/
+
+#Golang binaries
+*.o
+*.a
+*.so
+src/
+
+# Configuration files
+config.json

@@ -42,6 +42,8 @@ type Attachments struct {
 }
 
 func main() {
+	// args --full for full backup --zip for archive backup
+
 	//Reading configuration file and getting authorization keys
 	configBlob, _ := ioutil.ReadFile("./config.json")
 	var myConfig Configuration
@@ -96,6 +98,7 @@ func main() {
 	fmt.Println(myAttachments)
 	fmt.Println("")
 
+	//TODO incremental backup
 	//Making path and filename
 	backupFolder := myConfig.DestinationFolder + "Trello 00-00-0000\\"
 	boardFolder := myOrgs[0].Name + "__" + myBoards[1].Name + "\\"
@@ -115,6 +118,8 @@ func main() {
 	echo(filename, filename)
 	err := ioutil.WriteFile(filename, backupFile, 0644)
 	check(err)
+
+	//TODO zipping backup
 }
 
 func getResponse(request string, authorization string) []byte {

@@ -82,6 +82,7 @@ func main() {
 	fmt.Println("")
 
 	//Getting all of card
+	originCard := getResponse("cards/"+myCards[3].ID, myAuth)
 	var myCard Card
 	json.Unmarshal(originCard, &myCard)
 	fmt.Println(myCard)

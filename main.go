@@ -16,23 +16,15 @@ type Configuration struct {
 }
 
 type Organizations struct {
-	ID          string   `json:"id"`
-	Name string   `json:"displayName"`
+	ID   string `json:"id"`
+	Name string `json:"displayName"`
 }
 
-type Boards struct {
+type BoardsListsCards struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
 }
 
-type Lists struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
-}
-
-type Cards struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
 type Card struct {
 	ID           string `json:"id"`
 	Name         string `json:"name"`
@@ -42,7 +34,7 @@ type Card struct {
 	LastActivity string `json:"dateLastActivity"`
 }
 
-type Card struct {
+type Attachments struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
 	URL string `json:"name"`
@@ -66,15 +58,15 @@ func main() {
 	fmt.Println("")
 
 	//Getting all boards of organization
-	var myBoards []Boards
 	originBoards := getResponse("organizations/"+myOrgs[0].ID+"/boards", myAuth)
+	var myBoards []BoardsListsCards
 	json.Unmarshal(originBoards, &myBoards)
 	fmt.Println(myBoards)
 	fmt.Println("")
 
 	//Getting all lists of board
-	var mylists []Lists
 	originLists := getResponse("boards/"+myBoards[1].ID+"/lists", myAuth)
+	var mylists []BoardsListsCards
 	json.Unmarshal(originLists, &mylists)
 	fmt.Println(mylists)
 	fmt.Println("")
@@ -82,8 +74,8 @@ func main() {
 	//Getting labels of board
 
 	//Getting all cards of list
-	var myCards []Cards
 	originCards := getResponse("list/"+mylists[2].ID+"/cards", myAuth)
+	var myCards []BoardsListsCards
 	json.Unmarshal(originCards, &myCards)
 	//fmt.Println(myCards)
 	fmt.Println(myCards)

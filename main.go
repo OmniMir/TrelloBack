@@ -28,27 +28,26 @@ type Boards struct {
 
 
 func main() {
-	//Reading configuration file
+	//Reading configuration file and getting authorization keys
 	configBlob, _ := ioutil.ReadFile("./config.json")
 	var myConfig Configuration
 	json.Unmarshal(configBlob, &myConfig)
+	myAuth := "?key=" + myConfig.ApiKey + "&token=" + myConfig.ApiToken
 
 	//Getting all organizations of user
-	authorization := "?key=" + myConfig.ApiKey + "&token=" + myConfig.ApiToken
-	response, _ := http.Get(Trello + "members/me/organizations/" + authorization)
-	responseJSON, _ := ioutil.ReadAll(response.Body)
+	originOrganizations := getResponse("members/me/organizations/", myAuth)
 	var myOrgs []Organizations
-	json.Unmarshal(responseJSON, &myOrgs)
+	json.Unmarshal(originOrganizations, &myOrgs)
 
 
 	fmt.Println(myOrgs[0])
 
 	fmt.Println(myOrgs[0].BoardsIDs[1])
-	response1, _ := http.Get(Trello + "boards/" + myOrgs[0].BoardsIDs[1] + authorization)
-	responseJSON1, _ := ioutil.ReadAll(response1.Body)
-	fmt.Println(responseJSON1)
+
+	//Getting all boards of organization
+	originBoards := getResponse("boards/" + myOrgs[0].BoardsIDs[1], myAuth)
 	var myBoards Boards
-	json.Unmarshal(responseJSON1, &myBoards)
+	json.Unmarshal(originBoards, &myBoards)
 	fmt.Println(myBoards)
 
 
@@ -64,8 +63,12 @@ func main() {
 
 
 
+}
 
+func getResponse(request string, authorization string) []byte {
+	response, _ := http.Get(Trello + request + authorization)
 
+	responseJSON, _ := ioutil.ReadAll(response.Body)
 
-
+	return responseJSON
 }

@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 )
 
 const Trello = "https://api.trello.com/1/"
@@ -94,7 +95,8 @@ func main() {
 			//Making path and filename
 			backupFolder := myConfig.DestinationFolder + "Trello 00-00-0000\\"
 			boardFolder := myOrgs[0].Name + "__" + myBoards[1].Name + "\\"
-			cardFile := myLists[j].Name + "__" + myCards[i].Name
+			cardName := strings.Replace(myCards[i].Name, "*", "`", -1)
+			cardFile := myLists[j].Name + "__" + cardName
 			extension := ".json"
 			//Making all needed folders
 			fileFolder := backupFolder + boardFolder

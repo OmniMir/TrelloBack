@@ -57,22 +57,16 @@ func main() {
 	originOrganizations := getResponse("members/me/organizations/", myAuth)
 	var myOrgs []Organizations
 	json.Unmarshal(originOrganizations, &myOrgs)
-	fmt.Println(myOrgs)
-	fmt.Println("")
 
 	//Getting all boards of organization
 	originBoards := getResponse("organizations/"+myOrgs[0].ID+"/boards", myAuth)
 	var myBoards []BoardsListsCards
 	json.Unmarshal(originBoards, &myBoards)
-	fmt.Println(myBoards)
-	fmt.Println("")
 
 	//Getting all lists of board
 	originLists := getResponse("boards/"+myBoards[1].ID+"/lists", myAuth)
 	var mylists []BoardsListsCards
 	json.Unmarshal(originLists, &mylists)
-	fmt.Println(mylists)
-	fmt.Println("")
 
 	//Getting labels of board
 

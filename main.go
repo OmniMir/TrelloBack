@@ -65,8 +65,8 @@ func main() {
 
 	//Getting all lists of board
 	originLists := getResponse("boards/"+myBoards[1].ID+"/lists", myAuth)
-	var mylists []BoardsListsCards
-	json.Unmarshal(originLists, &mylists)
+	var myLists []BoardsListsCards
+	json.Unmarshal(originLists, &myLists)
 
 	//Getting labels of board
 

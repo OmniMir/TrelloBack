@@ -75,43 +75,41 @@ func main() {
 	var myCards []BoardsListsCards
 	json.Unmarshal(originCards, &myCards)
 	//fmt.Println(myCards)
-	fmt.Println(myCards)
-	fmt.Println("")
 
-	//Getting all of card
-	originCard := getResponse("cards/"+myCards[3].ID, myAuth)
-	var myCard Card
-	json.Unmarshal(originCard, &myCard)
-	fmt.Println(myCard)
-	fmt.Println("")
+	for i := range myCards {
 
-	//Getting card attachments
-	originAttachments := getResponse("cards/"+myCards[3].ID+"/attachments", myAuth)
-	var myAttachments []Attachments
-	json.Unmarshal(originAttachments, &myAttachments)
-	fmt.Println(myAttachments)
-	fmt.Println("")
+		//Getting all of card
+		originCard := getResponse("cards/"+myCards[i].ID, myAuth)
+		var myCard Card
+		json.Unmarshal(originCard, &myCard)
 
-	//TODO incremental backup
-	//Making path and filename
-	backupFolder := myConfig.DestinationFolder + "Trello 00-00-0000\\"
-	boardFolder := myOrgs[0].Name + "__" + myBoards[1].Name + "\\"
-	cardFile := mylists[2].Name + "__" + myCards[3].Name
-	extension := ".json"
-	//Making all needed folders
-	fileFolder := backupFolder + boardFolder
-	os.MkdirAll(fileFolder, 0644)
-	filename := fileFolder + cardFile + extension
-	//Converting cards and attachments to text
-	backupCard, _ := json.Marshal(myCard)
-	backupAttachments, _ := json.Marshal(myAttachments)
-	//Adding new line before attachments
-	backupAttachmentsNewLine := append([]byte("\r\n"), backupAttachments...)
-	backupFile := append(backupCard, backupAttachmentsNewLine...)
-	//Writting file of card
-	echo(filename, filename)
-	err := ioutil.WriteFile(filename, backupFile, 0644)
-	check(err)
+		//Getting card attachments
+		originAttachments := getResponse("cards/"+myCards[i].ID+"/attachments", myAuth)
+		var myAttachments []Attachments
+		json.Unmarshal(originAttachments, &myAttachments)
+
+		//TODO incremental backup
+		//Making path and filename
+		backupFolder := myConfig.DestinationFolder + "Trello 00-00-0000\\"
+		boardFolder := myOrgs[0].Name + "__" + myBoards[1].Name + "\\"
+		cardFile := mylists[2].Name + "__" + myCards[i].Name
+		extension := ".json"
+		//Making all needed folders
+		fileFolder := backupFolder + boardFolder
+		os.MkdirAll(fileFolder, 0644)
+		filename := fileFolder + cardFile + extension
+		//Converting cards and attachments to text
+		backupCard, _ := json.Marshal(myCard)
+		backupAttachments, _ := json.Marshal(myAttachments)
+		//Adding new line before attachments
+		backupAttachmentsNewLine := append([]byte("\r\n"), backupAttachments...)
+		backupFile := append(backupCard, backupAttachmentsNewLine...)
+		//Writting file of card
+		echo(filename, filename)
+		ioutil.WriteFile(filename, backupFile, 0644)
+
+
+	}
 
 	//TODO zipping backup
 }

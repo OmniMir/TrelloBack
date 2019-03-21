@@ -57,12 +57,12 @@ func main() {
 
 	//Getting all organizations of user
 	originOrganizations := getResponse("members/me/organizations/", myAuth)
-	var myOrgs []Organizations
-	json.Unmarshal(originOrganizations, &myOrgs)
+	var myOrganizations []Organizations
+	json.Unmarshal(originOrganizations, &myOrganizations)
 
-	for l := range myOrgs {
+	for l := range myOrganizations {
 		//Getting all boards of organization
-		originBoards := getResponse("organizations/"+myOrgs[l].ID+"/boards", myAuth)
+		originBoards := getResponse("organizations/"+myOrganizations[l].ID+"/boards", myAuth)
 		var myBoards []BoardsListsCards
 		json.Unmarshal(originBoards, &myBoards)
 
@@ -116,7 +116,7 @@ func main() {
 				}
 
 			}
-			echo("Backup of "+myOrgs[l].Name+"__"+myBoards[k].Name+" OK", myBoards[k].Name)
+			echo("Backup of "+myOrganizations[l].Name+delimiter+myBoards[k].Name+" OK", myBoards[k].Name)
 		}
 	}
 

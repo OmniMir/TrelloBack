@@ -44,7 +44,7 @@ type Attachments struct {
 }
 
 func main() {
-	// args --full for full backup --zip for archive backup
+	// args --full for full backup --zip for archive backup --1 with card/list numbers
 
 	//Reading configuration file and getting authorization keys
 	configBlob, _ := ioutil.ReadFile("./config.json")
@@ -60,6 +60,7 @@ func main() {
 	var myOrganizations []Organizations
 	json.Unmarshal(originOrganizations, &myOrganizations)
 
+	//MAIN CYCLE
 	for l := range myOrganizations {
 		//Getting all boards of organization
 		originBoards := getResponse("organizations/"+myOrganizations[l].ID+"/boards", myAuth)
@@ -75,12 +76,10 @@ func main() {
 			//Getting labels of board
 
 			for j := range myLists {
-
 				//Getting all cards of list
 				originCards := getResponse("list/"+myLists[j].ID+"/cards", myAuth)
 				var myCards []BoardsListsCards
 				json.Unmarshal(originCards, &myCards)
-				//fmt.Println(myCards)
 
 				for i := range myCards {
 					//Getting all of card
@@ -116,6 +115,7 @@ func main() {
 				}
 
 			}
+			//Writing messages about processing
 			echo("Backup of "+myOrganizations[l].Name+delimiter+myBoards[k].Name+" OK", myBoards[k].Name)
 		}
 	}

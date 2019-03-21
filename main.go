@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const Trello = "https://api.trello.com/1/"
+const trello = "https://api.trello.com/1/"
 const delimiter = "__"
 
 type Configuration struct {
@@ -124,7 +124,7 @@ func main() {
 }
 
 func getResponse(request string, authorization string) []byte {
-	response, err := http.Get(Trello + request + authorization)
+	response, err := http.Get(trello + request + authorization)
 	check(err)
 	responseJSON, err := ioutil.ReadAll(response.Body)
 	check(err)

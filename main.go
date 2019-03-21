@@ -10,6 +10,7 @@ import (
 )
 
 const Trello = "https://api.trello.com/1/"
+const delimiter = "__"
 
 type Configuration struct {
 	ApiKey            string `json:"api_key"`
@@ -95,9 +96,9 @@ func main() {
 						//TODO incremental backup
 						//Making path and filename
 						backupFolder := myConfig.DestinationFolder + "Trello 00-00-0000\\"
-						boardFolder := myOrgs[l].Name + "__" + myBoards[k].Name + "\\"
+						boardFolder := myOrganizations[l].Name + delimiter + myBoards[k].Name + "\\"
 						cardName := strings.Replace(myCards[i].Name, "*", "`", -1)
-						cardFile := myLists[j].Name + "__" + cardName
+						cardFile := myLists[j].Name + delimiter + cardName
 						extension := ".json"
 						//Making all needed folders
 						fileFolder := backupFolder + boardFolder

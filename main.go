@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 const (
 trello = "https://api.trello.com/1/"
@@ -59,6 +60,20 @@ type Attachments struct {
 func main() {
 	// args --full for full backup --zip for archive backup --1 with card/list numbers
 
+	//Finding out date of starting and backup folder
+	currentDate := time.Now()
+	fmt.Print(currentDate)
+	fmt.Print("\n")
+	formatDate := currentDate.Format(time.RFC3339)
+	fmt.Print(formatDate)
+	fmt.Print("\n")
+	datetime := strings.Split(formatDate, "T")
+	fmt.Print(datetime)
+	fmt.Print("\n")
+	backupDate := datetime[0]
+	fmt.Print(backupDate)
+	fmt.Print("\n")
+
 	//Reading configuration file and getting authorization keys
 	configBlob, _ := ioutil.ReadFile("./config.json")
 	var myConfig Configuration
@@ -95,11 +110,8 @@ func main() {
 					myBoardsOnly = append(myBoardsOnly, board)
 				}
 			}
-			fmt.Print(myBoardsOnly)
-			fmt.Print("\n\n")
 			//Transforming personal boards as BoardsListsCards
 			for m := range myBoardsOnly {
-				fmt.Print(m)
 				var tempBoard BoardsListsCards
 				tempBoard.ID = myBoardsOnly[m].ID
 				tempBoard.Name = myBoardsOnly[m].Name

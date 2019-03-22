@@ -133,7 +133,7 @@ func main() {
 					go func(i int) {
 						//TODO incremental backup
 						//Making path and filename
-						backupFolder := myConfig.DestinationFolder + "Trello 00-00-0000\\"
+						backupFolder := myConfig.DestinationFolder + "00-00-0000\\"
 						boardFolder := myOrganizations[l].Name + delimiter + myBoards[k].Name + "\\"
 						cardName := strings.Replace(myCards[i].Name, "*", "`", -1)
 						cardFile := myLists[j].Name + delimiter + cardName

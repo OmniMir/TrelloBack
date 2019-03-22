@@ -8,7 +8,7 @@ One binary to rulу all yours [trello-kanban-lists-etc...](https://trello.com)
 
 ## Installation
 
-Simply download one execution file from releases.
+Simply download one execution file from [releases](https://github.com/OmniMir/TrelloBack/releases) and config file.
 
 
 

@@ -13,7 +13,7 @@ const trello = "https://api.trello.com/1/"
 const delimiter = "__"
 const personalID = "xxxxxxxxxx"
 const forbiddenFileCharacter = "\\"
-const specilalCharacter = "`"
+const specialCharacter = "`"
 
 var forbiddenCharacters = []string{"/", "?", "%", "*", "|", "<", ">"}
 
@@ -144,10 +144,10 @@ func main() {
 						extension := ".json"
 						//Deleting characters forbidden in filesystem
 						for n := range forbiddenCharacters {
-							boardFolder = strings.Replace(boardFolder, forbiddenCharacters[n], specilalCharacter, -1)
-							cardFile = strings.Replace(cardFile, forbiddenCharacters[n], specilalCharacter, -1)
+							boardFolder = strings.Replace(boardFolder, forbiddenCharacters[n], specialCharacter, -1)
+							cardFile = strings.Replace(cardFile, forbiddenCharacters[n], specialCharacter, -1)
 						}
-						cardFile = strings.Replace(cardFile, forbiddenFileCharacter, specilalCharacter, -1)
+						cardFile = strings.Replace(cardFile, forbiddenFileCharacter, specialCharacter, -1)
 						//Making all needed folders
 						fileFolder := backupFolder + boardFolder
 						os.MkdirAll(fileFolder, 0644)

@@ -159,7 +159,7 @@ func main() {
 						//Adding new line before attachments
 						backupAttachmentsNewLine := append([]byte("\r\n"), backupAttachments...)
 						backupFile := append(backupCard, backupAttachmentsNewLine...)
-						//Writting file of card
+						//Writing file of card
 						ioutil.WriteFile(filename, backupFile, 0644)
 					}(i)
 				}

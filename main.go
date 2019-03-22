@@ -28,6 +28,13 @@ type BoardsListsCards struct {
 	Name string `json:"name"`
 }
 
+type PersonalBoards struct {
+	ID     string `json:"id"`
+	Name   string `json:"name"`
+	IdOrg  string `json:"idOrganization"`
+	Closed bool   `json:"closed"`
+}
+
 type Card struct {
 	ID           string `json:"id"`
 	Name         string `json:"name"`
@@ -60,12 +67,44 @@ func main() {
 	var myOrganizations []Organizations
 	json.Unmarshal(originOrganizations, &myOrganizations)
 
+	var personalOrganization Organizations
+	personalOrganization.ID = "xxxxxxxxxx"
+	personalOrganization.Name = "Personal"
+	myOrganizations = append(myOrganizations, personalOrganization)
+
 	//MAIN CYCLE
 	for l := range myOrganizations {
-		//Getting all boards of organization
-		originBoards := getResponse("organizations/"+myOrganizations[l].ID+"/boards", myAuth)
 		var myBoards []BoardsListsCards
-		json.Unmarshal(originBoards, &myBoards)
+
+		if myOrganizations[l].ID == "xxxxxxxxxx" {
+			//Getting all personal boards of user
+			originBoards := getResponse("members/me/boards/", myAuth)
+			var myBoardsAll []PersonalBoards
+			json.Unmarshal(originBoards, &myBoardsAll)
+
+			//Filtering only personal and opened boards
+			var myBoardsOnly []PersonalBoards
+			for _, board := range myBoardsAll {
+				if board.IdOrg == "" && !board.Closed {
+					myBoardsOnly = append(myBoardsOnly, board)
+				}
+			}
+			fmt.Print(myBoardsOnly)
+			fmt.Print("\n\n")
+			//Transforming personal boards as BoardsListsCards
+			for m := range myBoardsOnly {
+				fmt.Print(m)
+				var tempBoard BoardsListsCards
+				tempBoard.ID = myBoardsOnly[m].ID
+				tempBoard.Name = myBoardsOnly[m].Name
+				myBoards = append(myBoards, tempBoard)
+			}
+
+		} else {
+			//Getting all boards of organization
+			originBoards := getResponse("organizations/"+myOrganizations[l].ID+"/boards", myAuth)
+			json.Unmarshal(originBoards, &myBoards)
+		}
 
 		for k := range myBoards {
 			//Getting all lists of board

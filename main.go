@@ -62,17 +62,7 @@ func main() {
 
 	//Finding out date of starting and backup folder
 	currentDate := time.Now()
-	fmt.Print(currentDate)
-	fmt.Print("\n")
-	formatDate := currentDate.Format(time.RFC3339)
-	fmt.Print(formatDate)
-	fmt.Print("\n")
-	datetime := strings.Split(formatDate, "T")
-	fmt.Print(datetime)
-	fmt.Print("\n")
-	backupDate := datetime[0]
-	fmt.Print(backupDate)
-	fmt.Print("\n")
+	backupDate := currentDate.Format("2006-01-02")
 
 	//Reading configuration file and getting authorization keys
 	configBlob, _ := ioutil.ReadFile("./config.json")
@@ -151,7 +141,7 @@ func main() {
 					go func(i int) {
 						//TODO incremental backup
 						//Making path and filename
-						backupFolder := myConfig.DestinationFolder + "00-00-0000\\"
+						backupFolder := myConfig.DestinationFolder + backupDate + "\\"
 						boardFolder := myOrganizations[l].Name + delimiter + myBoards[k].Name + "\\"
 						cardFile := myLists[j].Name + delimiter + myCards[i].Name
 						extension := ".json"

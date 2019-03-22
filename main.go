@@ -112,7 +112,7 @@ func main() {
 			var myLists []BoardsListsCards
 			json.Unmarshal(originLists, &myLists)
 
-			//Getting labels of board
+			//TODO Getting labels of board
 
 			for j := range myLists {
 				//Getting all cards of list

@@ -8,12 +8,13 @@ import (
 	"os"
 	"strings"
 )
-
-const trello = "https://api.trello.com/1/"
-const delimiter = "__"
-const personalID = "xxxxxxxxxx"
-const forbiddenFileCharacter = "\\"
-const specialCharacter = "`"
+const (
+trello = "https://api.trello.com/1/"
+delimiter = "__"
+personalID = "xxxxxxxxxx"
+forbiddenFileCharacter = "\\"
+specialCharacter = "`"
+)
 
 var forbiddenCharacters = []string{"/", "?", "%", "*", "|", "<", ">"}
 

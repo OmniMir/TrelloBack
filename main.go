@@ -155,7 +155,7 @@ func main() {
 
 			}
 			//Writing messages about processing
-			echo("Backup of "+myOrganizations[l].Name+delimiter+myBoards[k].Name+" OK", myBoards[k].Name)
+			echo("Backup of '"+myOrganizations[l].Name+delimiter+myBoards[k].Name+"' OK", myBoards[k].Name)
 		}
 	}
 

@@ -11,6 +11,7 @@ import (
 
 const trello = "https://api.trello.com/1/"
 const delimiter = "__"
+const personalID = "xxxxxxxxxx"
 
 type Configuration struct {
 	ApiKey            string `json:"api_key"`
@@ -68,7 +69,7 @@ func main() {
 	json.Unmarshal(originOrganizations, &myOrganizations)
 
 	var personalOrganization Organizations
-	personalOrganization.ID = "xxxxxxxxxx"
+	personalOrganization.ID = personalID
 	personalOrganization.Name = "Personal"
 	myOrganizations = append(myOrganizations, personalOrganization)
 
@@ -76,7 +77,7 @@ func main() {
 	for l := range myOrganizations {
 		var myBoards []BoardsListsCards
 
-		if myOrganizations[l].ID == "xxxxxxxxxx" {
+		if myOrganizations[l].ID == personalID {
 			//Getting all personal boards of user
 			originBoards := getResponse("members/me/boards/", myAuth)
 			var myBoardsAll []PersonalBoards

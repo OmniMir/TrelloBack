@@ -58,7 +58,7 @@ type Attachments struct {
 }
 
 func main() {
-	// args --full for full backup --zip for archive backup --1 with card/list numbers
+	//TODO args --full for full backup --zip for archive backup --1 with card/list numbers
 
 	//Finding out date of starting and backup folder
 	currentDate := time.Now()

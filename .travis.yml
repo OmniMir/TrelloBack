@@ -1,0 +1,25 @@
+language: go
+
+go:
+  - "1.12.x"
+env:
+  global:
+  - GOARCH=amd64
+  - GOOS=windows
+
+notifications:
+  email: false
+
+before_install:
+
+script:
+ - go build
+
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file_glob: true
+  file: directory/**/*
+  skip_cleanup: true
+  on:
+    tags: true
